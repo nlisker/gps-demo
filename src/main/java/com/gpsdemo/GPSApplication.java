@@ -17,15 +17,19 @@ public class GPSApplication extends Application {
         appManager.addViewFactory(HOME_VIEW, HomeView::new);
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        appManager.start(stage);
-//        stage.setHeight(600);
-//       stage.setWidth(360);
-//       stage.centerOnScreen();
-    }
+	@Override
+	public void start(Stage stage) throws Exception {
+		appManager.start(stage);
+//		if (com.gluonhq.attach.util.Platform.isDesktop()) {
+//			stage.setHeight(600);
+//			stage.setWidth(360);
+//			stage.centerOnScreen();
+//		}
+	}
 
-    private void postInit(Scene scene) {}
+	private void postInit(Scene scene) {
+//		Platform.runLater(() -> ((Button) appManager.getGlassPane().lookup(".button.flat.light")).fire());
+	}
 
     public static void main(String args[]) {
         launch(args);

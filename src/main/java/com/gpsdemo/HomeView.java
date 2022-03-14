@@ -21,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import com.gluonhq.attach.position.Position;
-import com.gluonhq.attach.position.PositionService;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.SettingsPane;
 import com.gluonhq.charm.glisten.control.settings.DefaultOption;
@@ -31,7 +30,7 @@ public class HomeView extends View {
 
 	private static final double VGAP = 15;
 
-	private PositionService positionService;
+//	private PositionService positionService;
 
 	private final BooleanProperty send = new SimpleBooleanProperty();
 	private final BooleanProperty receive = new SimpleBooleanProperty();
@@ -49,7 +48,7 @@ public class HomeView extends View {
 
 		setupCircleAnimation();
 		setupSendAndReceive();
-		positioning();
+//		positioning();
 
 		var controls = new VBox(VGAP, settingsPane, labelsPane, new Separator(), circlePane);
 		setCenter(controls);
@@ -98,14 +97,14 @@ public class HomeView extends View {
 	}
 
 	private void setupSendAndReceive() {
-		send.addListener((obs, ov, nv) -> {
-			if (nv) {
-				positionService.start(); // TODO: add start params as options
-				// send data
-			} else {
-				positionService.stop();
-			}
-		});
+//		send.addListener((obs, ov, nv) -> {
+//			if (nv) {
+//				positionService.start(); // TODO: add start params as options
+//				// send data
+//			} else {
+//				positionService.stop();
+//			}
+//		});
 
 		receive.addListener((obs, ov, nv) -> {
 			if (nv) {
@@ -116,12 +115,12 @@ public class HomeView extends View {
 		});
 	}
 
-	private void positioning() {
-		PositionService.create().ifPresentOrElse(service -> {
-			positionService = service;
-			thisPos.bind(service.positionProperty());
-		}, () -> thisPos.set(new Position(1, 2, 3)));
-	}
+//	private void positioning() {
+//		PositionService.create().ifPresentOrElse(service -> {
+//			positionService = service;
+//			thisPos.bind(service.positionProperty());
+//		}, () -> thisPos.set(new Position(1, 2, 3)));
+//	}
 
 	private void setupCircleAnimation() {
 		circleAnim.setAutoReverse(true);
