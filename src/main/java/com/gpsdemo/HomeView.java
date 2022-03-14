@@ -120,7 +120,7 @@ public class HomeView extends View {
 		PositionService.create().ifPresentOrElse(service -> {
 			positionService = service;
 			thisPos.bind(service.positionProperty());
-		}, () -> thisPos.set(new Position(1, 3, 3)));
+		}, () -> thisPos.set(new Position(1, 2, 3)));
 	}
 
 	private void setupCircleAnimation() {

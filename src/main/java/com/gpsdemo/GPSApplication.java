@@ -20,9 +20,9 @@ public class GPSApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         appManager.start(stage);
-        stage.setHeight(600);
-        stage.setWidth(360);
-        stage.centerOnScreen();
+//        stage.setHeight(600);
+//       stage.setWidth(360);
+//       stage.centerOnScreen();
     }
 
     private void postInit(Scene scene) {}
