@@ -40,20 +40,16 @@ jobs:
           GLUON_ANDROID_KEYALIAS: ${{ secrets.GLUON_ANDROID_KEYALIAS }}
           GLUON_ANDROID_KEYALIAS_PASSWORD: ${{ secrets.GLUON_ANDROID_KEYALIAS_PASSWORD }}
 
-      - name: Make staging directory
-        run: mkdir staging
+#     - name: Make staging directory
+#       run: mkdir staging
 
-      - name: Copy packages to staging
-        run: cp -r target/gluonfx/aarch64-android/gvm/GPSDemo.* staging
+#     - name: Copy packages to staging
+#       run: cp -r target/gluonfx/aarch64-android/gvm/GPSDemo.* staging
 
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
-          name: Package
-          path: staging
+          name: Android package
+#         path: staging
+          path: target/gluonfx/aarch64-android/gvm/GPSDemo.apk
 
-      - name: Download
-        uses: actions/download-artifact@main
-        with:
-          name: Package
-          path: public
