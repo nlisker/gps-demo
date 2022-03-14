@@ -1,13 +1,12 @@
 package com.gpsdemo;
 
-import com.gluonhq.charm.glisten.application.AppManager;
-import com.gluonhq.charm.glisten.visual.Swatch;
+import static com.gluonhq.charm.glisten.application.AppManager.*;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import static com.gluonhq.charm.glisten.application.AppManager.HOME_VIEW;
+import com.gluonhq.charm.glisten.application.AppManager;
 
 public class GPSApplication extends Application {
 
@@ -15,19 +14,18 @@ public class GPSApplication extends Application {
 
     @Override
     public void init() {
-        appManager.addViewFactory(HOME_VIEW, BasicView::new);
+        appManager.addViewFactory(HOME_VIEW, HomeView::new);
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        appManager.start(primaryStage);
+    public void start(Stage stage) throws Exception {
+        appManager.start(stage);
+        stage.setHeight(600);
+        stage.setWidth(360);
+        stage.centerOnScreen();
     }
 
-    private void postInit(Scene scene) {
-        Swatch.BLUE.assignTo(scene);
-
-        ((Stage) scene.getWindow()).getIcons().add(new Image(GPSApplication.class.getResourceAsStream("/icon.png")));
-    }
+    private void postInit(Scene scene) {}
 
     public static void main(String args[]) {
         launch(args);
