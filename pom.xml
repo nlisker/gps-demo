@@ -22,7 +22,7 @@
         <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
         <main.class>com.gpsdemo.GPSApplication</main.class>
         <app.identifier>${main.class}</app.identifier>
-        <app.description>The HelloGluon app</app.description>
+        <app.description>The GPSDemo app</app.description>
         <package.type/>
         <mac.app.store/>
         <mac.signing.user.name/>
@@ -194,7 +194,7 @@
             <id>android</id>
             <properties>
                 <gluonfx.target>android</gluonfx.target>
-                <app.identifier>com.gluonhq.samples.hellogluon</app.identifier>
+                <app.identifier>com.gps.demo</app.identifier>
                 <version.code>${env.GITHUB_RUN_NUMBER}</version.code>
                 <provided.keystore.path>${env.GLUON_ANDROID_KEYSTOREPATH}</provided.keystore.path>
                 <provided.keystore.password>${env.GLUON_ANDROID_KEYSTORE_PASSWORD}</provided.keystore.password>

@@ -32,6 +32,7 @@ public class GPSApplication extends Application {
 	}
 
     public static void main(String args[]) {
+    	System.setProperty(com.gluonhq.attach.util.Constants.ATTACH_DEBUG, "true");
         launch(args);
     }
 }
