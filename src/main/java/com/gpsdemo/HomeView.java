@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
@@ -49,7 +50,8 @@ public class HomeView extends View {
 //
 //		setupCircleAnimation();
 //		setupSendAndReceive();
-		positioning();
+		var posButton = new Button("Activate position");
+		posButton.setOnAction(e -> positioning());
 //
 //		var controls = new VBox(VGAP, settingsPane, labelsPane, new Separator(), circlePane);
 //		setCenter(controls);
