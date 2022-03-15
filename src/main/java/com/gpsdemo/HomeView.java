@@ -21,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import com.gluonhq.attach.position.Position;
+import com.gluonhq.attach.position.PositionService;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.SettingsPane;
 import com.gluonhq.charm.glisten.control.settings.DefaultOption;
@@ -30,7 +31,7 @@ public class HomeView extends View {
 
 	private static final double VGAP = 15;
 
-//	private PositionService positionService;
+	private PositionService positionService;
 
 	private final BooleanProperty send = new SimpleBooleanProperty();
 	private final BooleanProperty receive = new SimpleBooleanProperty();
