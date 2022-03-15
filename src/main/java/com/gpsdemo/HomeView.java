@@ -49,7 +49,7 @@ public class HomeView extends View {
 
 		setupCircleAnimation();
 		setupSendAndReceive();
-//		positioning();
+		positioning();
 
 		var controls = new VBox(VGAP, settingsPane, labelsPane, new Separator(), circlePane);
 		setCenter(controls);
@@ -116,12 +116,13 @@ public class HomeView extends View {
 		});
 	}
 
-//	private void positioning() {
-//		PositionService.create().ifPresentOrElse(service -> {
-//			positionService = service;
+	private void positioning() {
+		PositionService.create().ifPresent(service -> {
+			positionService = service;
+		});
 //			thisPos.bind(service.positionProperty());
 //		}, () -> thisPos.set(new Position(1, 2, 3)));
-//	}
+	}
 
 	private void setupCircleAnimation() {
 		circleAnim.setAutoReverse(true);
