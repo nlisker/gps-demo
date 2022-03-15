@@ -33,7 +33,7 @@ public class HomeView extends View {
 //	private static final double VGAP = 15;
 
 	private PositionService positionService;
-
+	Button posButton = new Button("Activate position");
 //	private final BooleanProperty send = new SimpleBooleanProperty();
 //	private final BooleanProperty receive = new SimpleBooleanProperty();
 
@@ -50,8 +50,8 @@ public class HomeView extends View {
 //
 //		setupCircleAnimation();
 //		setupSendAndReceive();
-		var posButton = new Button("Activate position");
 		posButton.setOnAction(e -> positioning());
+		setCenter(posButton);
 //
 //		var controls = new VBox(VGAP, settingsPane, labelsPane, new Separator(), circlePane);
 //		setCenter(controls);
@@ -121,6 +121,8 @@ public class HomeView extends View {
 	private void positioning() {
 		PositionService.create().ifPresent(service -> {
 			positionService = service;
+			positionService.start();
+			posButton.setText(positionService.getPosition().toString());
 		});
 //			thisPos.bind(service.positionProperty());
 //		}, () -> thisPos.set(new Position(1, 2, 3)));
