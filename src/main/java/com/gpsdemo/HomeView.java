@@ -4,6 +4,7 @@ import static com.gluonhq.charm.glisten.visual.MaterialDesignIcon.*;
 
 import javafx.animation.Animation;
 import javafx.animation.FillTransition;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -50,7 +51,7 @@ public class HomeView extends View {
 //
 //		setupCircleAnimation();
 //		setupSendAndReceive();
-		posButton.setOnAction(e -> positioning());
+		posButton.setOnAction(e -> Platform.runLater(() -> positioning()));
 		setCenter(posButton);
 //
 //		var controls = new VBox(VGAP, settingsPane, labelsPane, new Separator(), circlePane);
@@ -121,7 +122,11 @@ public class HomeView extends View {
 	private void positioning() {
 		PositionService.create().ifPresent(service -> {
 			positionService = service;
+			System.out.println("service created: " + positionService);
 			positionService.start();
+			System.out.println("service started: " + positionService);
+			positionService.stop();
+			System.out.println("service stopped: " + positionService);
 //			posButton.setText(positionService.getPosition().getAltitude() +"");
 		});
 //			thisPos.bind(service.positionProperty());
