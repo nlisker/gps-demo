@@ -122,7 +122,7 @@ public class HomeView extends View {
 		PositionService.create().ifPresent(service -> {
 			positionService = service;
 			positionService.start();
-			posButton.setText(positionService.getPosition().toString());
+//			posButton.setText(positionService.getPosition().getAltitude() +"");
 		});
 //			thisPos.bind(service.positionProperty());
 //		}, () -> thisPos.set(new Position(1, 2, 3)));
