@@ -3,7 +3,9 @@ package com.gpsdemo;
 import static com.gluonhq.charm.glisten.application.AppManager.*;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import com.gluonhq.charm.glisten.application.AppManager;
@@ -28,7 +30,7 @@ public class GPSApplication extends Application {
 	}
 
 	private void postInit(Scene scene) {
-//		Platform.runLater(() -> ((Button) appManager.getGlassPane().lookup(".button.flat.light")).fire());
+		Platform.runLater(() -> ((Button) appManager.getGlassPane().lookup(".button.flat.light")).fire());
 	}
 
     public static void main(String args[]) {
