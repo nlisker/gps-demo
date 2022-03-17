@@ -36,8 +36,8 @@ public class HomeView extends View {
 	private final BooleanProperty send = new SimpleBooleanProperty();
 	private final BooleanProperty receive = new SimpleBooleanProperty();
 //
-	private final ObjectProperty<Position> thisPos = new SimpleObjectProperty<>();
-	private final ObjectProperty<Position> theirPos = new SimpleObjectProperty<>();
+	private final ObjectProperty<Position> thisPos = new SimpleObjectProperty<>(new Position(1, 2, 3));
+	private final ObjectProperty<Position> theirPos = new SimpleObjectProperty<>(new Position(4, 5, 6));
 
 	private final Circle circle = new Circle(100, Color.GREEN);
 	private final Animation circleAnim = new FillTransition(Duration.seconds(0.5), circle, Color.RED, Color.WHITE);
@@ -49,7 +49,7 @@ public class HomeView extends View {
 
 		setupCircleAnimation();
 		setupSendAndReceive();
-		positioning();
+//		positioning();
 //		posButton.setOnAction(e -> Platform.runLater(() -> positioning()));
 //		setCenter(posButton);
 
@@ -118,8 +118,8 @@ public class HomeView extends View {
 		});
 	}
 
-	private void positioning() {
-		PositionService.create().ifPresentOrElse(service -> {
+//	private void positioning() {
+//		PositionService.create().ifPresentOrElse(service -> {
 //			positionService = service;
 //			System.out.println("service created: " + positionService);
 //			positionService.start();
@@ -129,8 +129,8 @@ public class HomeView extends View {
 //			posButton.setText(positionService.getPosition().getAltitude() +"");
 //		});
 //			thisPos.bind(service.positionProperty());
-		}, () -> thisPos.set(new Position(1, 2, 3)));
-	}
+//		}, () -> thisPos.set(new Position(1, 2, 3)));
+//	}
 
 	private void setupCircleAnimation() {
 		circleAnim.setAutoReverse(true);
