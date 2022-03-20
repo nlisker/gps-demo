@@ -11,11 +11,11 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <javafx.version>17.0.1</javafx.version>
         <charm.version>6.1.0</charm.version>
         <connect.version>2.0.1</connect.version>
-        <attach.version>4.0.13</attach.version>
+        <attach.version>4.0.14-SNAPSHOT</attach.version>
         <connect.version>2.0.1</connect.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <gluonfx.maven.plugin.version>1.0.12</gluonfx.maven.plugin.version>

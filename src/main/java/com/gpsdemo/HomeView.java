@@ -31,7 +31,7 @@ public class HomeView extends View {
 
 	private static final double VGAP = 15;
 
-//	private PositionService positionService;
+	private PositionService positionService;
 //	Button posButton = new Button("Activate position");
 	private final BooleanProperty send = new SimpleBooleanProperty();
 	private final BooleanProperty receive = new SimpleBooleanProperty();
@@ -49,7 +49,7 @@ public class HomeView extends View {
 
 		setupCircleAnimation();
 		setupSendAndReceive();
-//		positioning();
+		positioning();
 //		posButton.setOnAction(e -> Platform.runLater(() -> positioning()));
 //		setCenter(posButton);
 
@@ -118,19 +118,18 @@ public class HomeView extends View {
 		});
 	}
 
-//	private void positioning() {
-//		PositionService.create().ifPresentOrElse(service -> {
-//			positionService = service;
-//			System.out.println("service created: " + positionService);
-//			positionService.start();
-//			System.out.println("service started: " + positionService);
-//			positionService.stop();
-//			System.out.println("service stopped: " + positionService);
+	private void positioning() {
+		PositionService.create().ifPresentOrElse(service -> {
+			positionService = service;
+			System.out.println("service created: " + positionService);
+			positionService.start();
+			System.out.println("service started: " + positionService);
+			positionService.stop();
+			System.out.println("service stopped: " + positionService);
 //			posButton.setText(positionService.getPosition().getAltitude() +"");
-//		});
-//			thisPos.bind(service.positionProperty());
-//		}, () -> thisPos.set(new Position(1, 2, 3)));
-//	}
+			thisPos.bind(service.positionProperty());
+		}, () -> thisPos.set(new Position(1, 2, 3)));
+	}
 
 	private void setupCircleAnimation() {
 		circleAnim.setAutoReverse(true);
