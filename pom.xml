@@ -78,6 +78,11 @@
         </dependency>
         <dependency>
             <groupId>com.gluonhq.attach</groupId>
+            <artifactId>accelerometer</artifactId>
+            <version>${attach.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
             <artifactId>util</artifactId>
             <version>${attach.version}</version>
         </dependency>
@@ -131,6 +136,7 @@
                         <list>statusbar</list>
                         <list>storage</list>
                         <list>position</list>
+                        <list>accelerometer</list>
                     </attachList>
                     <mainClass>${main.class}</mainClass>
                     <appIdentifier>${app.identifier}</appIdentifier>

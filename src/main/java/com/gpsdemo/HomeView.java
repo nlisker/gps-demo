@@ -2,6 +2,8 @@ package com.gpsdemo;
 
 import static com.gluonhq.charm.glisten.visual.MaterialDesignIcon.*;
 
+import java.time.LocalDateTime;
+
 import javafx.animation.Animation;
 import javafx.animation.FillTransition;
 import javafx.beans.binding.Bindings;
@@ -20,6 +22,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import com.gluonhq.attach.accelerometer.Acceleration;
+import com.gluonhq.attach.accelerometer.AccelerometerService;
 import com.gluonhq.attach.position.Position;
 import com.gluonhq.attach.position.PositionService;
 import com.gluonhq.charm.glisten.control.AppBar;
@@ -32,16 +36,19 @@ public class HomeView extends View {
 	private static final double VGAP = 15;
 
 	private PositionService positionService;
-//	Button posButton = new Button("Activate position");
+	private AccelerometerService accelerometerService;
+
 	private final BooleanProperty send = new SimpleBooleanProperty();
 	private final BooleanProperty receive = new SimpleBooleanProperty();
-//
+
 	private final ObjectProperty<Position> thisPos = new SimpleObjectProperty<>(new Position(1, 2, 3));
 	private final ObjectProperty<Position> theirPos = new SimpleObjectProperty<>(new Position(4, 5, 6));
 
+	private final ObjectProperty<Acceleration> accel = new SimpleObjectProperty<>(new Acceleration(4, 5, 6, LocalDateTime.now()));
+
 	private final Circle circle = new Circle(100, Color.GREEN);
 	private final Animation circleAnim = new FillTransition(Duration.seconds(0.5), circle, Color.RED, Color.WHITE);
-//
+
 	public HomeView() {
 		var settingsPane = createSettingsPane();
 		var labelsPane = createLabelsPane();
@@ -50,8 +57,6 @@ public class HomeView extends View {
 		setupCircleAnimation();
 		setupSendAndReceive();
 		positioning();
-//		posButton.setOnAction(e -> Platform.runLater(() -> positioning()));
-//		setCenter(posButton);
 
 		var controls = new VBox(VGAP, settingsPane, labelsPane, new Separator(), circlePane);
 		setCenter(controls);
@@ -71,6 +76,7 @@ public class HomeView extends View {
 		var insets = new Insets(0, 0, 0, 10);
 
 		var thisPosLabel = new Label();
+		thisPosLabel.setTextFill(Color.GREEN);
 		var thisPosStringProp = Bindings.createStringBinding(() -> "This location: " + positionToString(thisPos.get()), thisPos);
 		thisPosLabel.textProperty().bind(thisPosStringProp);
 		thisPosLabel.setFont(font);
@@ -81,7 +87,14 @@ public class HomeView extends View {
 		theirPosLabel.textProperty().bind(theirPosStringProp);
 		theirPosLabel.setFont(font);
 		theirPosLabel.setPadding(insets);
-		return new VBox(VGAP, thisPosLabel, theirPosLabel);
+
+		var accelLabel = new Label();
+		var accelStringProp = Bindings.createStringBinding(() -> "Acceleration: " + accelerationToString(accel.get()), accel);
+		accelLabel.textProperty().bind(accelStringProp);
+		accelLabel.setFont(font);
+		accelLabel.setPadding(insets);
+
+		return new VBox(VGAP, thisPosLabel, theirPosLabel, accelLabel);
 	}
 
 	private String positionToString(Position pos) {
@@ -89,6 +102,13 @@ public class HomeView extends View {
 			return "";
 		}
 		return pos.getLatitude() + ", " + pos.getLongitude() + ", " + pos.getAltitude();
+	}
+
+	private String accelerationToString(Acceleration acc) {
+		if (acc == null) {
+			return "";
+		}
+		return acc.getX() + ", " + acc.getY() + ", " + acc.getZ();
 	}
 
 	private HBox createCirclePane() {
@@ -121,14 +141,15 @@ public class HomeView extends View {
 	private void positioning() {
 		PositionService.create().ifPresentOrElse(service -> {
 			positionService = service;
-			System.out.println("service created: " + positionService);
 			positionService.start();
-			System.out.println("service started: " + positionService);
-			positionService.stop();
-			System.out.println("service stopped: " + positionService);
-//			posButton.setText(positionService.getPosition().getAltitude() +"");
-			thisPos.bind(service.positionProperty());
-		}, () -> thisPos.set(new Position(1, 2, 3)));
+			thisPos.bind(positionService.positionProperty());
+		}, () -> {});
+		
+		AccelerometerService.create().ifPresentOrElse(service -> {
+			accelerometerService = service;
+			accelerometerService.start();
+			accel.bind(accelerometerService.accelerationProperty());
+		}, () -> {});
 	}
 
 	private void setupCircleAnimation() {
