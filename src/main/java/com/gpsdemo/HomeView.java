@@ -24,8 +24,10 @@ import javafx.util.Duration;
 
 import com.gluonhq.attach.accelerometer.Acceleration;
 import com.gluonhq.attach.accelerometer.AccelerometerService;
+import com.gluonhq.attach.accelerometer.Parameters;
 import com.gluonhq.attach.position.Position;
 import com.gluonhq.attach.position.PositionService;
+import com.gluonhq.attach.position.Parameters.Accuracy;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.SettingsPane;
 import com.gluonhq.charm.glisten.control.settings.DefaultOption;
@@ -141,13 +143,13 @@ public class HomeView extends View {
 	private void positioning() {
 		PositionService.create().ifPresentOrElse(service -> {
 			positionService = service;
-			positionService.start();
+			positionService.start(new com.gluonhq.attach.position.Parameters(Accuracy.HIGH, 1000l, 0.5f, false));
 			thisPos.bind(positionService.positionProperty());
 		}, () -> {});
 		
 		AccelerometerService.create().ifPresentOrElse(service -> {
 			accelerometerService = service;
-			accelerometerService.start();
+			accelerometerService.start(new Parameters(1000, true));
 			accel.bind(accelerometerService.accelerationProperty());
 		}, () -> {});
 	}
