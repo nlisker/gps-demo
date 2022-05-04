@@ -2,6 +2,7 @@ package com.gpsdemo;
 
 import static com.gluonhq.charm.glisten.visual.MaterialDesignIcon.*;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 import javafx.animation.Animation;
@@ -25,9 +26,9 @@ import javafx.util.Duration;
 import com.gluonhq.attach.accelerometer.Acceleration;
 import com.gluonhq.attach.accelerometer.AccelerometerService;
 import com.gluonhq.attach.accelerometer.Parameters;
+import com.gluonhq.attach.position.Parameters.Accuracy;
 import com.gluonhq.attach.position.Position;
 import com.gluonhq.attach.position.PositionService;
-import com.gluonhq.attach.position.Parameters.Accuracy;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.SettingsPane;
 import com.gluonhq.charm.glisten.control.settings.DefaultOption;
@@ -74,7 +75,7 @@ public class HomeView extends View {
 	}
 
 	private VBox createLabelsPane() {
-		var font = new Font(16);
+		var font = new Font(18);
 		var insets = new Insets(0, 0, 0, 10);
 
 		var thisPosLabel = new Label();
@@ -99,18 +100,25 @@ public class HomeView extends View {
 		return new VBox(VGAP, thisPosLabel, theirPosLabel, accelLabel);
 	}
 
+	private final DecimalFormat df2 = new DecimalFormat("#.##");
+	private final DecimalFormat df5 = new DecimalFormat("#.#####");
+
 	private String positionToString(Position pos) {
 		if (pos == null) {
 			return "";
 		}
-		return String.format("Lat %.5f\nLng %.5f\nAlt %.5f", pos.getLatitude(), pos.getLongitude(), pos.getAltitude());
+		return "Lat=" + df5.format(pos.getLatitude()) + "\n" +
+			   "Lng=" + df5.format(pos.getLongitude()) + "\n" +
+			   "Alt=" + df5.format(pos.getAltitude());
 	}
 
 	private String accelerationToString(Acceleration acc) {
 		if (acc == null) {
 			return "";
 		}
-		return String.format("%.2f\n%.2f\n%.2f", acc.getX(), acc.getY(), acc.getZ());
+		return "x=" + df2.format(acc.getX()) + "\n" +
+			   "y=" + df2.format(acc.getY()) + "\n" +
+			   "z=" + df2.format(acc.getZ());
 	}
 
 	private HBox createCirclePane() {
