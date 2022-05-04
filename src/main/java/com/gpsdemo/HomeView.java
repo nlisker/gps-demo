@@ -75,7 +75,7 @@ public class HomeView extends View {
 	}
 
 	private VBox createLabelsPane() {
-		var font = new Font(18);
+		var font = new Font(16);
 		var insets = new Insets(0, 0, 0, 10);
 
 		var thisPosLabel = new Label();
