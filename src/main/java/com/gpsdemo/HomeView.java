@@ -66,7 +66,7 @@ public class HomeView extends View {
 
 	private SettingsPane createSettingsPane() {
 		var sendOption = new DefaultOption<>(CLOUD_UPLOAD.graphic(), "Send", "Sends location", null, send, true);
-		var receiveOption = new DefaultOption<>(CLOUD_DOWNLOAD.graphic(), "Receive", "Receives location", null, receive, true);
+		var receiveOption = new DefaultOption<>(CLOUD_DOWNLOAD.graphic(), "Receive (now: alarm)", "Receives location", null, receive, true);
 		var settingsPane = new SettingsPane();
 		settingsPane.getOptions().addAll(sendOption, receiveOption);
 		settingsPane.setSearchBoxVisible(false);
@@ -74,24 +74,24 @@ public class HomeView extends View {
 	}
 
 	private VBox createLabelsPane() {
-		var font = new Font(24);
+		var font = new Font(16);
 		var insets = new Insets(0, 0, 0, 10);
 
 		var thisPosLabel = new Label();
 		thisPosLabel.setTextFill(Color.GREEN);
-		var thisPosStringProp = Bindings.createStringBinding(() -> "This location: " + positionToString(thisPos.get()), thisPos);
+		var thisPosStringProp = Bindings.createStringBinding(() -> "This location:\n" + positionToString(thisPos.get()), thisPos);
 		thisPosLabel.textProperty().bind(thisPosStringProp);
 		thisPosLabel.setFont(font);
 		thisPosLabel.setPadding(insets);
 
 		var theirPosLabel = new Label();
-		var theirPosStringProp = Bindings.createStringBinding(() -> "Their location: " + positionToString(theirPos.get()), theirPos);
+		var theirPosStringProp = Bindings.createStringBinding(() -> "Their location:\n" + positionToString(theirPos.get()), theirPos);
 		theirPosLabel.textProperty().bind(theirPosStringProp);
 		theirPosLabel.setFont(font);
 		theirPosLabel.setPadding(insets);
 
 		var accelLabel = new Label();
-		var accelStringProp = Bindings.createStringBinding(() -> "Acceleration: " + accelerationToString(accel.get()), accel);
+		var accelStringProp = Bindings.createStringBinding(() -> "Acceleration:\n" + accelerationToString(accel.get()), accel);
 		accelLabel.textProperty().bind(accelStringProp);
 		accelLabel.setFont(font);
 		accelLabel.setPadding(insets);
@@ -103,14 +103,14 @@ public class HomeView extends View {
 		if (pos == null) {
 			return "";
 		}
-		return pos.getLatitude() + ",\n" + pos.getLongitude() + ",\n" + pos.getAltitude();
+		return String.format("%.5f, %.5f, %.5f", pos.getLatitude(), pos.getLongitude(), pos.getAltitude());
 	}
 
 	private String accelerationToString(Acceleration acc) {
 		if (acc == null) {
 			return "";
 		}
-		return acc.getX() + ",\n" + acc.getY() + ",\n" + acc.getZ();
+		return String.format("%.2f, %.2f, %.2f", acc.getX(), acc.getY(), acc.getZ());
 	}
 
 	private HBox createCirclePane() {
@@ -134,10 +134,12 @@ public class HomeView extends View {
 	private void setupSendAndReceive() {
 		send.addListener((obs, ov, nv) -> {
 			if (nv) {
-				positionService.start(); // TODO: add start params as options
+				positionService.start(new com.gluonhq.attach.position.Parameters(Accuracy.HIGH, 1000l, 0.1f, false)); // TODO: add start params as options
+				accelerometerService.start(new Parameters(2, true));
 				// send data
 			} else {
 				positionService.stop();
+				accelerometerService.stop();
 			}
 		});
 
@@ -153,13 +155,11 @@ public class HomeView extends View {
 	private void positioning() {
 		PositionService.create().ifPresentOrElse(service -> {
 			positionService = service;
-			positionService.start(new com.gluonhq.attach.position.Parameters(Accuracy.HIGH, 1000l, 0.1f, false));
 			thisPos.bind(positionService.positionProperty());
 		}, () -> {});
 		
 		AccelerometerService.create().ifPresentOrElse(service -> {
 			accelerometerService = service;
-			accelerometerService.start(new Parameters(1000, true));
 			accel.bind(accelerometerService.accelerationProperty());
 		}, () -> {});
 	}
