@@ -103,14 +103,14 @@ public class HomeView extends View {
 		if (pos == null) {
 			return "";
 		}
-		return String.format("%.5f, %.5f, %.5f", pos.getLatitude(), pos.getLongitude(), pos.getAltitude());
+		return String.format("Lat %.5f\nLng %.5f\nAlt %.5f", pos.getLatitude(), pos.getLongitude(), pos.getAltitude());
 	}
 
 	private String accelerationToString(Acceleration acc) {
 		if (acc == null) {
 			return "";
 		}
-		return String.format("%.2f, %.2f, %.2f", acc.getX(), acc.getY(), acc.getZ());
+		return String.format("%.2f\n%.2f\n%.2f", acc.getX(), acc.getY(), acc.getZ());
 	}
 
 	private HBox createCirclePane() {
@@ -134,7 +134,7 @@ public class HomeView extends View {
 	private void setupSendAndReceive() {
 		send.addListener((obs, ov, nv) -> {
 			if (nv) {
-				positionService.start(new com.gluonhq.attach.position.Parameters(Accuracy.HIGH, 1000l, 0.1f, false)); // TODO: add start params as options
+				positionService.start(new com.gluonhq.attach.position.Parameters(Accuracy.HIGH, 500l, 0.1f, false)); // TODO: add start params as options
 				accelerometerService.start(new Parameters(2, true));
 				// send data
 			} else {

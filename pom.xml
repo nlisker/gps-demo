@@ -16,10 +16,10 @@
         <charm.version>6.1.0</charm.version>
         <connect.version>2.0.1</connect.version>
         <attach.version>4.0.14-SNAPSHOT</attach.version>
-        <connect.version>2.0.1</connect.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <gluonfx.maven.plugin.version>1.0.12</gluonfx.maven.plugin.version>
         <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
+
         <main.class>com.gpsdemo.GPSApplication</main.class>
         <app.identifier>${main.class}</app.identifier>
         <app.description>The GPSDemo app</app.description>
@@ -112,6 +112,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+					<release>${maven.compiler.release}</release>
+				</configuration>
             </plugin>
 
             <plugin>
