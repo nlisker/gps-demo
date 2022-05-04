@@ -107,9 +107,9 @@ public class HomeView extends View {
 		if (pos == null) {
 			return "";
 		}
-		return "Lat=" + df5.format(pos.getLatitude()) + "\n" +
-			   "Lng=" + df5.format(pos.getLongitude()) + "\n" +
-			   "Alt=" + df5.format(pos.getAltitude());
+		return "Lat=" + /*df5.format(*/pos.getLatitude()/*)*/ + "\n" +
+			   "Lng=" + /*df5.format(*/pos.getLongitude()/*)*/ + "\n" +
+				"Alt=" + /*df5.format(*/pos.getAltitude()/*)*/;
 	}
 
 	private String accelerationToString(Acceleration acc) {
