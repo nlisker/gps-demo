@@ -37,8 +37,8 @@ public class HomeView extends View {
 
 	private static final double VGAP = 15;
 
-//	private PositionService positionService;
-//	private AccelerometerService accelerometerService;
+	private PositionService positionService;
+	private AccelerometerService accelerometerService;
 
 	private final BooleanProperty send = new SimpleBooleanProperty();
 	private final BooleanProperty receive = new SimpleBooleanProperty();
@@ -48,19 +48,19 @@ public class HomeView extends View {
 
 	private final ObjectProperty<Acceleration> accel = new SimpleObjectProperty<>(new Acceleration(4, 5, 6, LocalDateTime.now()));
 
-//	private final Circle circle = new Circle(100, Color.GREEN);
-//	private final Animation circleAnim = new FillTransition(Duration.seconds(0.5), circle, Color.RED, Color.WHITE);
+	private final Circle circle = new Circle(100, Color.GREEN);
+	private final Animation circleAnim = new FillTransition(Duration.seconds(0.5), circle, Color.RED, Color.WHITE);
 
 	public HomeView() {
 		var settingsPane = createSettingsPane();
 		var labelsPane = createLabelsPane();
-//		var circlePane = createCirclePane();
+		var circlePane = createCirclePane();
 
-//		setupCircleAnimation();
-//		setupSendAndReceive();
-//		positioning();
+		setupCircleAnimation();
+		setupSendAndReceive();
+		positioning();
 
-		var controls = new VBox(VGAP, settingsPane, labelsPane/*, new Separator(), circlePane*/);
+		var controls = new VBox(VGAP, settingsPane, labelsPane, new Separator(), circlePane);
 		setCenter(controls);
 	}
 
@@ -103,66 +103,66 @@ public class HomeView extends View {
 		if (pos == null) {
 			return "";
 		}
-		return pos.getLatitude() + ", " + pos.getLongitude() + ", " + pos.getAltitude();
+		return pos.getLatitude() + ",\n" + pos.getLongitude() + ",\n" + pos.getAltitude();
 	}
 
 	private String accelerationToString(Acceleration acc) {
 		if (acc == null) {
 			return "";
 		}
-		return acc.getX() + ", " + acc.getY() + ", " + acc.getZ();
+		return acc.getX() + ",\n" + acc.getY() + ",\n" + acc.getZ();
 	}
-//
-//	private HBox createCirclePane() {
-//		circle.setStroke(Color.BLACK);
-//		circle.setStrokeWidth(3);
-//		var circlePane = new HBox(circle);
-//		circlePane.setAlignment(Pos.CENTER);
-//		return circlePane;
-//	}
-//
-//	private void setupSendAndReceive() {
-//		send.addListener((obs, ov, nv) -> {
-//			if (nv) {
-////				positionService.start(); // TODO: add start params as options
-//				// send data
-//			} else {
-////				positionService.stop();
-//			}
-//		});
-//
-//		receive.addListener((obs, ov, nv) -> {
-//			if (nv) {
-//				circleAnim.play();
-//			} else {
-//				circleAnim.stop();
-//			}
-//		});
-//	}
-//
-//	private void positioning() {
-//		PositionService.create().ifPresentOrElse(service -> {
-//			positionService = service;
-//			positionService.start(new com.gluonhq.attach.position.Parameters(Accuracy.HIGH, 1000l, 0.5f, false));
-//			thisPos.bind(positionService.positionProperty());
-//		}, () -> {});
-//		
-//		AccelerometerService.create().ifPresentOrElse(service -> {
-//			accelerometerService = service;
-//			accelerometerService.start(new Parameters(1000, true));
-//			accel.bind(accelerometerService.accelerationProperty());
-//		}, () -> {});
-//	}
-//
-//	private void setupCircleAnimation() {
-//		circleAnim.setAutoReverse(true);
-//		circleAnim.setCycleCount(Animation.INDEFINITE);
-//		circleAnim.statusProperty().addListener((obs, ov, nv) -> {
-//			if (nv == Animation.Status.STOPPED) {
-//				circle.setFill(Color.GREEN);
-//			}
-//		});
-//	}
+
+	private HBox createCirclePane() {
+		circle.setStroke(Color.BLACK);
+		circle.setStrokeWidth(3);
+		var circlePane = new HBox(circle);
+		circlePane.setAlignment(Pos.CENTER);
+		return circlePane;
+	}
+	
+	private void setupCircleAnimation() {
+		circleAnim.setAutoReverse(true);
+		circleAnim.setCycleCount(Animation.INDEFINITE);
+		circleAnim.statusProperty().addListener((obs, ov, nv) -> {
+			if (nv == Animation.Status.STOPPED) {
+				circle.setFill(Color.GREEN);
+			}
+		});
+	}
+
+	private void setupSendAndReceive() {
+		send.addListener((obs, ov, nv) -> {
+			if (nv) {
+				positionService.start(); // TODO: add start params as options
+				// send data
+			} else {
+				positionService.stop();
+			}
+		});
+
+		receive.addListener((obs, ov, nv) -> {
+			if (nv) {
+				circleAnim.play();
+			} else {
+				circleAnim.stop();
+			}
+		});
+	}
+
+	private void positioning() {
+		PositionService.create().ifPresentOrElse(service -> {
+			positionService = service;
+			positionService.start(new com.gluonhq.attach.position.Parameters(Accuracy.HIGH, 1000l, 0.1f, false));
+			thisPos.bind(positionService.positionProperty());
+		}, () -> {});
+		
+		AccelerometerService.create().ifPresentOrElse(service -> {
+			accelerometerService = service;
+			accelerometerService.start(new Parameters(1000, true));
+			accel.bind(accelerometerService.accelerationProperty());
+		}, () -> {});
+	}
 
 	@Override
 	protected void updateAppBar(AppBar appBar) {
