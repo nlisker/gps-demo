@@ -75,26 +75,26 @@ public class HomeView extends View {
 	}
 
 	private VBox createLabelsPane() {
-		var font = new Font(16);
+//		var font = new Font(16);
 		var insets = new Insets(0, 0, 0, 10);
 
 		var thisPosLabel = new Label();
 		thisPosLabel.setTextFill(Color.GREEN);
 		var thisPosStringProp = Bindings.createStringBinding(() -> "This location:\n" + positionToString(thisPos.get()), thisPos);
 		thisPosLabel.textProperty().bind(thisPosStringProp);
-		thisPosLabel.setFont(font);
+//		thisPosLabel.setFont(font);
 		thisPosLabel.setPadding(insets);
 
 		var theirPosLabel = new Label();
 		var theirPosStringProp = Bindings.createStringBinding(() -> "Their location:\n" + positionToString(theirPos.get()), theirPos);
 		theirPosLabel.textProperty().bind(theirPosStringProp);
-		theirPosLabel.setFont(font);
+//		theirPosLabel.setFont(font);
 		theirPosLabel.setPadding(insets);
 
 		var accelLabel = new Label();
 		var accelStringProp = Bindings.createStringBinding(() -> "Acceleration:\n" + accelerationToString(accel.get()), accel);
 		accelLabel.textProperty().bind(accelStringProp);
-		accelLabel.setFont(font);
+//		accelLabel.setFont(font);
 		accelLabel.setPadding(insets);
 
 		return new VBox(VGAP, thisPosLabel, theirPosLabel, accelLabel);
