@@ -66,8 +66,8 @@ public class HomeView extends View {
 	}
 
 	private SettingsPane createSettingsPane() {
-		var sendOption = new DefaultOption<>(CLOUD_UPLOAD.graphic(), "Send", "Sends location", null, send, true);
-		var receiveOption = new DefaultOption<>(CLOUD_DOWNLOAD.graphic(), "Receive (now: alarm)", "Receives location", null, receive, true);
+		var sendOption = new DefaultOption<>(/*CLOUD_UPLOAD.graphic(),*/ "Send", "Sends location", null, send, true);
+		var receiveOption = new DefaultOption<>(/*CLOUD_DOWNLOAD.graphic(),*/ "Receive (now: alarm)", "Receives location", null, receive, true);
 		var settingsPane = new SettingsPane();
 		settingsPane.getOptions().addAll(sendOption, receiveOption);
 		settingsPane.setSearchBoxVisible(false);
@@ -75,7 +75,7 @@ public class HomeView extends View {
 	}
 
 	private VBox createLabelsPane() {
-		var font = new Font(16);
+		var font = new Font(18);
 		var insets = new Insets(0, 0, 0, 10);
 
 		var thisPosLabel = new Label();
@@ -100,25 +100,25 @@ public class HomeView extends View {
 		return new VBox(VGAP, thisPosLabel, theirPosLabel, accelLabel);
 	}
 
-	private final DecimalFormat df2 = new DecimalFormat("#.##");
-	private final DecimalFormat df5 = new DecimalFormat("#.#####");
+	private final DecimalFormat accDF = new DecimalFormat("#.##");
+	private final DecimalFormat posDF = new DecimalFormat("#.#######");
 
 	private String positionToString(Position pos) {
 		if (pos == null) {
 			return "";
 		}
-		return "Lat=" + /*df5.format(*/pos.getLatitude()/*)*/ + "\n" +
-			   "Lng=" + /*df5.format(*/pos.getLongitude()/*)*/ + "\n" +
-				"Alt=" + /*df5.format(*/pos.getAltitude()/*)*/;
+		return "Lat=" + posDF.format(pos.getLatitude()) + "\n" +
+			   "Lng=" + posDF.format(pos.getLongitude()) + "\n" +
+			   "Alt=" + posDF.format(pos.getAltitude());
 	}
 
 	private String accelerationToString(Acceleration acc) {
 		if (acc == null) {
 			return "";
 		}
-		return "x=" + df2.format(acc.getX()) + "\n" +
-			   "y=" + df2.format(acc.getY()) + "\n" +
-			   "z=" + df2.format(acc.getZ());
+		return "x=" + accDF.format(acc.getX()) + "\n" +
+			   "y=" + accDF.format(acc.getY()) + "\n" +
+			   "z=" + accDF.format(acc.getZ());
 	}
 
 	private HBox createCirclePane() {
