@@ -16,7 +16,7 @@ public class GPSApplication extends Application {
 
     @Override
     public void init() {
-        appManager.addViewFactory(HOME_VIEW, HomeView::new);
+    	appManager.addViewFactory(HOME_VIEW, WebSocketView::new);
     }
 
 	@Override
