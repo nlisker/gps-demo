@@ -1,12 +1,12 @@
 package com.gpsdemo;
 
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.WebSocket;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-
-import org.java_websocket.client.WebSocketClient;
 
 import com.gluonhq.charm.glisten.mvc.View;
 
@@ -15,6 +15,23 @@ public class WebSocketView extends View {
 	static TextArea textArea = new TextArea();
 
 	public WebSocketView() {
+		WebSocket.Listener listener = new WebSocket.Listener() {
+			@Override
+			public void onOpen(WebSocket webSocket) {
+				System.out.println("open");
+			}
+			
+		};
+
+		HttpClient client = HttpClient.newHttpClient();
+		CompletableFuture<WebSocket> ws = client.newWebSocketBuilder().buildAsync(URI.create("ws://websocket.example.com"), listener);
+		try {
+			WebSocket webSocket = ws.get();
+			webSocket.sendText("SA", true);
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+
 //		URI uri = null;
 //		try {
 //			uri = new URI("ws://localhost:8887");
