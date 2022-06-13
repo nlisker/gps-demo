@@ -2,7 +2,7 @@ package com.gpsdemo.notification;
 
 import javafx.scene.media.AudioClip;
 
-import com.gpsDemo.shared.Warning;
+import com.gpsdemo.shared.Warning;
 
 public class Notifier {
 

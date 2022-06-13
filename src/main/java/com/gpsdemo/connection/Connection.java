@@ -1,6 +1,6 @@
 package com.gpsdemo.connection;
 
-import com.gpsDemo.shared.DeviceInfo;
+import com.gpsdemo.shared.DeviceInfo;
 
 public sealed interface Connection permits WebSocketsConnection, RESTConnection {
 

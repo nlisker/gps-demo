@@ -10,10 +10,10 @@ import lombok.experimental.FieldDefaults;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
-import com.gpsDemo.shared.Warning;
 import com.gpsdemo.EventsHandler;
 import com.gpsdemo.GPSApplication;
 import com.gpsdemo.notification.Notifier;
+import com.gpsdemo.shared.Warning;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DebugView extends View {

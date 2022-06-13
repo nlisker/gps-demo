@@ -5,7 +5,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpRequest;
-import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
@@ -16,9 +15,9 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 
-import com.gpsDemo.shared.DeviceInfo;
-import com.gpsDemo.shared.RESTPaths;
 import com.gpsdemo.notification.Notifier;
+import com.gpsdemo.shared.DeviceInfo;
+import com.gpsdemo.shared.RESTPaths;
 import com.gpsdemo.view.DebugView;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)

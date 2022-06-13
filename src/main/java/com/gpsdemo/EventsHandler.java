@@ -7,9 +7,9 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 
-import com.gpsDemo.shared.DeviceInfo;
 import com.gpsdemo.connection.Connection;
 import com.gpsdemo.connection.Connection.ConnectionType;
+import com.gpsdemo.shared.DeviceInfo;
 import com.gpsdemo.telemetry.TelemetryReader;
 import com.gpsdemo.view.DebugView;
 
