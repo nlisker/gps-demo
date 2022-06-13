@@ -47,8 +47,8 @@ public class GPSApplication extends Application {
 		Platform.runLater(() -> ((Button) appManager.getGlassPane().lookup(".button.flat.light")).fire());
 	}
 
-//	public static void main(String args[]) {
+	public static void main(String args[]) {
 //		System.setProperty(com.gluonhq.attach.util.Constants.ATTACH_DEBUG, "true");
-//		launch(args);
-//	}
+		launch(args);
+	}
 }
