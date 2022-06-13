@@ -12,8 +12,9 @@ import java.util.concurrent.ExecutionException;
 import javafx.scene.control.TextArea;
 
 import com.gluonhq.charm.glisten.mvc.View;
+import com.gpsdemo.shared.DeviceInfo;
 
-public class WebSocketsConnection implements Connection {
+public final class WebSocketsConnection implements Connection {
 
 	public WebSocketsConnection() {
 		WebSocket.Listener listener = new WebSocket.Listener() {
@@ -59,4 +60,13 @@ public class WebSocketsConnection implements Connection {
 //		setCenter(textArea);
 //		setBottom(send);
 	}
+
+	@Override
+	public void connect() {}
+
+	@Override
+	public void send(DeviceInfo deviceInfo) {}
+
+	@Override
+	public void close() {}
 }
