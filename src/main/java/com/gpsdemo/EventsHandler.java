@@ -25,10 +25,10 @@ public class EventsHandler {
 	DebugView logger = DebugView.get();
 	TelemetryReader telemetryReader = TelemetryReader.get();
 
-	public ObjectProperty<ConnectionType> connectionType = new SimpleObjectProperty<>(ConnectionType.NONE);
+	public ObjectProperty<ConnectionType> connectionType = new SimpleObjectProperty<>(ConnectionType.REST);
 
 	@NonFinal
-	Connection connection = Connection.createConnection(ConnectionType.NONE);
+	Connection connection = Connection.createConnection(ConnectionType.REST);
 
 	private EventsHandler() {
 		connectionType.addListener((obs, ov, nv) -> {
