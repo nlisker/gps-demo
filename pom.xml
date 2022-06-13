@@ -2,25 +2,30 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.gps.demo</groupId>
-	<artifactId>gpsdemo</artifactId>
+	<groupId>com.gpsdemo</groupId>
+	<artifactId>GPSDemoClient</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
 
 	<name>GPSDemo</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>11</maven.compiler.release>
-		<javafx.version>18</javafx.version>
-		<charm.version>6.1.0</charm.version>
-		<connect.version>2.0.1</connect.version>
-		<attach.version>4.0.14-SNAPSHOT</attach.version>
-		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
-		<gluonfx.maven.plugin.version>1.0.12</gluonfx.maven.plugin.version>
-		<maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
 
-		<main.class>com.gpsdemo.GPSApplication</main.class>
+		<maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
+		<maven-surefire-plugin-version>3.0.0-M6</maven-surefire-plugin-version>
+		<javafx-maven-plugin-version>0.0.8</javafx-maven-plugin-version>
+		<gluonfx-maven-plugin-version>1.0.13</gluonfx-maven-plugin-version>
+
+		<java-version>18</java-version>
+		<javafx-version>18.0.1</javafx-version>
+		<charm-version>6.1.0</charm-version>
+		<connect-version>2.0.1</connect-version>
+		<attach-version>4.0.14-SNAPSHOT</attach-version>
+
+		<lombok-version>1.18.24</lombok-version>
+		<junit-version>5.7.0</junit-version>
+	
+		<main.class>com.gpsdemo.Launcher</main.class>
 		<app.identifier>${main.class}</app.identifier>
 		<app.description>The GPSDemo app</app.description>
 		<package.type />
@@ -37,60 +42,73 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok-version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gpsdemo</groupId>
+			<artifactId>GPSDemoShared</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
+			<version>${javafx-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-media</artifactId>
+			<version>${javafx-version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.gluonhq</groupId>
 			<artifactId>charm-glisten</artifactId>
-			<version>${charm.version}</version>
+			<version>${charm-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gluonhq</groupId>
 			<artifactId>connect</artifactId>
-			<version>${connect.version}</version>
+			<version>${connect-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gluonhq.attach</groupId>
 			<artifactId>display</artifactId>
-			<version>${attach.version}</version>
+			<version>${attach-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gluonhq.attach</groupId>
 			<artifactId>lifecycle</artifactId>
-			<version>${attach.version}</version>
+			<version>${attach-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gluonhq.attach</groupId>
 			<artifactId>statusbar</artifactId>
-			<version>${attach.version}</version>
+			<version>${attach-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gluonhq.attach</groupId>
 			<artifactId>storage</artifactId>
-			<version>${attach.version}</version>
+			<version>${attach-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gluonhq.attach</groupId>
 			<artifactId>position</artifactId>
-			<version>${attach.version}</version>
+			<version>${attach-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gluonhq.attach</groupId>
 			<artifactId>accelerometer</artifactId>
-			<version>${attach.version}</version>
+			<version>${attach-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.gluonhq.attach</groupId>
 			<artifactId>util</artifactId>
-			<version>${attach.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.java-websocket</groupId>
-			<artifactId>Java-WebSocket</artifactId>
-			<version>1.5.3</version>
+			<version>${attach-version}</version>
 		</dependency>
 	</dependencies>
 
@@ -117,16 +135,19 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven.compiler.plugin.version}</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
-					<release>${maven.compiler.release}</release>
+					<release>${java-version}</release>
+					<compilerArgs>
+						<arg>--enable-preview</arg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 
 			<plugin>
 				<groupId>org.openjfx</groupId>
 				<artifactId>javafx-maven-plugin</artifactId>
-				<version>${javafx.maven.plugin.version}</version>
+				<version>${javafx-maven-plugin-version}</version>
 				<configuration>
 					<mainClass>${main.class}</mainClass>
 				</configuration>
@@ -135,7 +156,7 @@
 			<plugin>
 				<groupId>com.gluonhq</groupId>
 				<artifactId>gluonfx-maven-plugin</artifactId>
-				<version>${gluonfx.maven.plugin.version}</version>
+				<version>${gluonfx-maven-plugin-version}</version>
 				<configuration>
 					<verbose>true</verbose>
 					<target>${gluonfx.target}</target>

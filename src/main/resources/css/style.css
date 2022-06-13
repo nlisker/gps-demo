@@ -1,0 +1,7 @@
+.settings-pane .options-grid > .option-row > .secondary-graphic > .text-field {
+	-fx-max-width: 50;
+}
+
+.settings-pane .options-grid > .option-row {
+	-fx-spacing: 0;
+}

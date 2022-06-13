@@ -1,6 +1,4 @@
-package com.gpsdemo;
-
-import static com.gluonhq.charm.glisten.visual.MaterialDesignIcon.*;
+package com.gpsdemo.view;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
@@ -20,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import com.gluonhq.attach.accelerometer.Acceleration;
