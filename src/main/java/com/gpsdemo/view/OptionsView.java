@@ -25,9 +25,10 @@ public class OptionsView extends View {
 	private static final TelemetryReader TELEMETRY_READER = TelemetryReader.get();
 
 	private OptionsView() {
-		SettingsPane settingsPane = createSettingsPane();
+		var settingsPane = createSettingsPane();
 		setCenter(settingsPane);
 		setOnShown(e -> {
+			settingsPane.applyCss();
 			Set<Node> rightBox = settingsPane.lookupAll(".secondary-graphic");
 			for (Node node : rightBox) {
 				if (node instanceof HBox hbox) {

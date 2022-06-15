@@ -1,9 +1,0 @@
-[
-	{
-		"resources": [
-			{
-				"pattern": ".*\\.wav$"
-			}
-		]
-	}
-]

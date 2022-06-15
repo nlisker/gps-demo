@@ -20,9 +20,9 @@ public class GPSApplication extends Application {
 
 	AppManager appManager = AppManager.initialize(this::postInit);
 
-	public static final String OPTIONS_VIEW = HOME_VIEW;
-	public static final String DEBUG_VIEW = "Debug View";
-//	public static final String OPTIONS_VIEW = "Options View";
+	public static final String DEBUG_VIEW = HOME_VIEW;
+//	public static final String DEBUG_VIEW = "Debug View";
+	public static final String OPTIONS_VIEW = "Options View";
 
 	@Override
 	public void init() {
@@ -39,7 +39,6 @@ public class GPSApplication extends Application {
 			stage.setWidth(360);
 			stage.centerOnScreen();
 		}
-		appManager.switchView(DEBUG_VIEW);
 	}
 
 	private void postInit(Scene scene) {
